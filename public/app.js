@@ -13,8 +13,11 @@ async function loadFormats() {
   formats = await res.json();
 }
 
+const EXTENSION_ALIASES = { jpeg: "jpg" };
+
 function extOf(filename) {
-  return filename.split(".").pop().toLowerCase();
+  const raw = filename.split(".").pop().toLowerCase();
+  return EXTENSION_ALIASES[raw] ?? raw;
 }
 
 function populateToOptions(fromExt) {
