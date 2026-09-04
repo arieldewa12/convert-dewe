@@ -7,7 +7,11 @@ const converter: Converter = {
   to: "png",
   label: "PDF → PNG (first page)",
   async convert(input: Buffer): Promise<Buffer> {
-    const pages = await pdfToPng(input, {
+    const arrayBuffer = input.buffer.slice(
+      input.byteOffset,
+      input.byteOffset + input.byteLength
+    ) as ArrayBuffer;
+    const pages = await pdfToPng(arrayBuffer, {
       pagesToProcess: [1],
       viewportScale: 2.0,
     });
