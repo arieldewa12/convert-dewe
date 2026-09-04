@@ -1,0 +1,29 @@
+public/index.html
+  s_20bca305e95a77::t_ddffb33f5241b9 1-5
+package.json
+  s_20bca305e95a77::t_8436e0cc0795d7 17-18,24-25
+server/index.ts
+  s_20bca305e95a77::t_08ac5d12090f5b 1-8,17-48,50-78
+  s_20bca305e95a77::t_5fa5b351a93a87 49
+  s_20bca305e95a77::t_aa7774f2c17e80 9-16
+tests/e2e.test.ts
+  s_20bca305e95a77::t_6f2a07d7ac7a9b 1-74
+package-lock.json
+  s_20bca305e95a77::t_9b27bcd04f7238 22-23,1176-1198,1627-1633,1674-1680,1755-1778,1917-1923,1934-1940,2098-2120,2172-2178,2204-2213,2242-2252,2319-2334,2458-2464,2483-2517,2621-2636,2908-2917,3435-3518,4316-4322
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "1ebf9e827bfc4046515748b452101d359a9f483e",
+  "prompts": {},
+  "sessions": {
+    "s_20bca305e95a77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "13dc5261-fce6-4dc9-9059-e39af151ee72",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "arieldewa12 <arieldewa12@gmail.com>"
+    }
+  }
+}
