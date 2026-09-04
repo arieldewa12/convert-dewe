@@ -10,7 +10,9 @@ npm install
 npm run dev
 ```
 
-Open http://127.0.0.1:3000, drop a file, pick an output format, convert.
+Open http://127.0.0.1:3000. Converters are grouped into sections (Image,
+Document, ...) — pick a card for the conversion you want, then drop a
+matching file and hit Convert.
 
 ## What's supported today
 

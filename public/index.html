@@ -5,56 +5,388 @@
     <title>Converter of All</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-      body {
-        font-family: system-ui, sans-serif;
-        max-width: 480px;
-        margin: 4rem auto;
-        padding: 0 1rem;
+      :root {
+        color-scheme: light dark;
+        --bg: #f4f4f7;
+        --bg-accent: #eef0ff;
+        --surface: #ffffff;
+        --border: #e4e4ea;
+        --text: #17171a;
+        --muted: #6b6b76;
+        --accent: #4f46e5;
+        --accent-2: #7c3aed;
+        --accent-hover: #4338ca;
+        --accent-soft: #eef0ff;
+        --success: #16a34a;
+        --success-soft: #ecfdf3;
+        --danger: #dc2626;
+        --danger-soft: #fef2f2;
+        --shadow: rgba(20, 20, 40, 0.08);
       }
-      #drop {
-        border: 2px dashed #888;
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d0d10;
+          --bg-accent: #15131f;
+          --surface: #18181c;
+          --border: #2a2a30;
+          --text: #f1f1f3;
+          --muted: #9a9aa4;
+          --accent-soft: #211f36;
+          --success-soft: #0f2419;
+          --danger-soft: #2a1414;
+          --shadow: rgba(0, 0, 0, 0.4);
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 3.5rem 1.5rem 4rem;
+        background:
+          radial-gradient(circle at 15% 0%, var(--bg-accent), transparent 45%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-bottom: 0.4rem;
+      }
+      .logo {
+        font-size: 1.7rem;
+        line-height: 1;
+      }
+      h1 {
+        font-size: 1.6rem;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      p.tagline {
+        color: var(--muted);
+        margin: 0 0 2.5rem;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      /* --- Card grid (home) --- */
+      .section {
+        margin-bottom: 2rem;
+      }
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        margin-bottom: 0.85rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.25rem;
+        cursor: pointer;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+        box-shadow: 0 1px 2px var(--shadow);
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px var(--shadow);
+        border-color: var(--accent);
+      }
+      .badge {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-bottom: 0.85rem;
+      }
+      .fmt-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2.6rem;
+        padding: 0.3rem 0.55rem;
         border-radius: 8px;
-        padding: 2rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      .badge .arrow {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .fmt-jpg {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .fmt-png {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .fmt-webp {
+        background: #cffafe;
+        color: #155e75;
+      }
+      .fmt-heic {
+        background: #fce7f3;
+        color: #9d174d;
+      }
+      .fmt-pdf {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .fmt-generic {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+      @media (prefers-color-scheme: dark) {
+        .fmt-jpg {
+          background: #451a03;
+          color: #fcd34d;
+        }
+        .fmt-png {
+          background: #1e2a4a;
+          color: #93c5fd;
+        }
+        .fmt-webp {
+          background: #113338;
+          color: #67e8f9;
+        }
+        .fmt-heic {
+          background: #4a1030;
+          color: #f9a8d4;
+        }
+        .fmt-pdf {
+          background: #450a0a;
+          color: #fca5a5;
+        }
+      }
+      .card .title {
+        font-weight: 600;
+        font-size: 0.98rem;
+      }
+      .card .subtitle {
+        color: var(--muted);
+        font-size: 0.8rem;
+        margin-top: 0.2rem;
+      }
+
+      /* --- Upload panel --- */
+      #panel {
+        display: none;
+      }
+      #panel.active {
+        display: block;
+      }
+      #grid.hidden {
+        display: none;
+      }
+      #back-btn {
+        background: none;
+        border: none;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 0;
+        margin-bottom: 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      #back-btn:hover {
+        color: var(--accent);
+      }
+      #panel-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+      #panel-icon {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-shrink: 0;
+      }
+      #panel-icon .fmt-chip {
+        font-size: 0.8rem;
+        min-width: 3.1rem;
+        padding: 0.4rem 0.65rem;
+      }
+      #panel-icon .arrow {
+        font-size: 1rem;
+      }
+      #panel-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      #panel-subtitle {
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin-top: 0.1rem;
+      }
+
+      #drop {
+        border: 2px dashed var(--border);
+        border-radius: 16px;
+        padding: 3rem 1.5rem;
         text-align: center;
-        color: #555;
+        color: var(--muted);
+        cursor: pointer;
+        background: var(--surface);
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+      #drop .drop-icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+      #drop .drop-hint {
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+        opacity: 0.8;
       }
       #drop.hover {
-        border-color: #333;
-        color: #000;
+        border-color: var(--accent);
+        background: var(--accent-soft);
       }
-      select,
-      button {
+
+      #selected-file {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: 0.85rem;
+        padding: 0.6rem 0.9rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        font-size: 0.88rem;
+      }
+      #selected-file.active {
+        display: flex;
+      }
+      #selected-file .name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      #remove-file {
+        background: none;
+        border: none;
+        color: var(--muted);
+        cursor: pointer;
         font-size: 1rem;
-        padding: 0.4rem;
+        line-height: 1;
+        padding: 0.1rem 0.3rem;
+        flex-shrink: 0;
       }
+      #remove-file:hover {
+        color: var(--danger);
+      }
+
+      button#convert-btn {
+        margin-top: 1.5rem;
+        width: 100%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 0.75rem 1.4rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.1s ease, opacity 0.15s ease;
+      }
+      button#convert-btn:disabled {
+        background: var(--border);
+        color: var(--muted);
+        cursor: not-allowed;
+      }
+      button#convert-btn:not(:disabled):hover {
+        transform: translateY(-1px);
+      }
+      button#convert-btn:not(:disabled):active {
+        transform: translateY(0);
+      }
+
       #status {
         margin-top: 1rem;
+        font-size: 0.88rem;
+        padding: 0.6rem 0.9rem;
+        border-radius: 10px;
+        display: none;
       }
-      .row {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        margin-top: 1rem;
+      #status.active {
+        display: block;
+      }
+      #status.info {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+      #status.success {
+        background: var(--success-soft);
+        color: var(--success);
+      }
+      #status.error {
+        background: var(--danger-soft);
+        color: var(--danger);
       }
     </style>
   </head>
   <body>
-    <h1>Converter of All</h1>
-    <p>Runs 100% locally. Your files never leave this machine.</p>
+    <header>
+      <span class="logo">🔀</span>
+      <h1>Converter of All</h1>
+    </header>
+    <p class="tagline">🔒 Runs 100% locally — your files never leave this machine.</p>
 
-    <div id="drop">Drop a file here, or click to choose</div>
-    <input type="file" id="file-input" hidden />
+    <div id="grid"></div>
 
-    <div class="row">
-      <label>From: <span id="from-label">—</span></label>
-      <label>
-        To:
-        <select id="to-select" disabled></select>
-      </label>
+    <div id="panel">
+      <button id="back-btn">&larr; All converters</button>
+
+      <div id="panel-header">
+        <div id="panel-icon"></div>
+        <div>
+          <div id="panel-title"></div>
+          <div id="panel-subtitle"></div>
+        </div>
+      </div>
+
+      <div id="drop">
+        <div class="drop-icon">📤</div>
+        <div id="drop-text">Drop a file here, or click to choose</div>
+        <div class="drop-hint" id="drop-hint"></div>
+      </div>
+      <input type="file" id="file-input" hidden />
+      <div id="selected-file">
+        <span class="name"></span>
+        <button id="remove-file" title="Remove file">✕</button>
+      </div>
+
       <button id="convert-btn" disabled>Convert</button>
+      <div id="status"></div>
     </div>
-
-    <div id="status"></div>
 
     <script src="app.js"></script>
   </body>
