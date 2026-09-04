@@ -3,6 +3,20 @@
 A local, open-source file converter. Runs entirely on your machine —
 your files are never uploaded anywhere.
 
+## Why this exists
+
+Online file converters are convenient, but every file you upload to one
+leaves your machine and lands on someone else's server — you have no
+idea how long it's kept, who can see it, or what it's used for. For
+personal or private files (IDs, contracts, photos, anything you'd
+rather not hand to a random website), that's a real risk, not a
+theoretical one.
+
+Converter of All solves this by running the whole thing locally: no
+upload, no server you don't control, no data leaving your machine.
+If a file matters enough that you'd think twice before uploading it
+somewhere, it belongs in a local/offline tool like this one.
+
 ## Run locally
 
 ```bash
