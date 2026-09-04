@@ -39,6 +39,26 @@ matching file and hit Convert.
 More formats are added via a plugin system — see [CONTRIBUTING.md](./CONTRIBUTING.md)
 to add your own.
 
+## Incoming
+
+Planned next, roughly in priority order (PRs welcome — see
+[CONTRIBUTING.md](./CONTRIBUTING.md)):
+
+**High priority** — the conversions people most often reach for an
+online tool for, on files they'd rather not upload:
+- HEIC → JPG
+- PDF compress
+- PDF merge / split
+- DOCX → PDF
+- Image resize / compress
+
+**Medium priority:**
+- XLSX ↔ CSV
+- Image → ICO
+- SVG → PNG
+- JSON ↔ CSV ↔ YAML
+- Markdown → PDF / HTML
+
 ## Why local-only
 
 Everything happens in this one Node process. There are no outbound
