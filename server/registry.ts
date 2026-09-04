@@ -77,12 +77,17 @@ export async function buildRegistry(
   return registry;
 }
 
+// ponytail: just the one real alias gap across the shipped converters
+const extensionAliases: Record<string, string> = { jpeg: "jpg" };
+
 export function getConverter(
   registry: Map<string, Converter>,
   from: string,
   to: string
 ): Converter | undefined {
-  return registry.get(`${from}:${to}`);
+  const normFrom = extensionAliases[from] ?? from;
+  const normTo = extensionAliases[to] ?? to;
+  return registry.get(`${normFrom}:${normTo}`);
 }
 
 export function listConverters(registry: Map<string, Converter>) {

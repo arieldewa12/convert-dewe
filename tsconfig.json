@@ -10,6 +10,6 @@
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["server", "public"],
-  "exclude": ["node_modules", "dist", "server/tmp"]
+  "include": ["server"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

@@ -18,6 +18,7 @@ Open http://127.0.0.1:3000, drop a file, pick an output format, convert.
 - PNG ↔ WebP
 - PNG → PDF
 - PDF → PNG (first page)
+- HEIC → PDF
 
 More formats are added via a plugin system — see [CONTRIBUTING.md](./CONTRIBUTING.md)
 to add your own.
@@ -26,8 +27,10 @@ to add your own.
 
 Everything happens in this one Node process. There are no outbound
 network calls during conversion, and the server binds to `127.0.0.1`
-only. Uploaded and converted files live in `server/tmp/` only for the
-duration of a request and are deleted immediately after.
+only. Uploads are handled entirely in memory (`multer.memoryStorage()`)
+and converted in memory — the file is never written to disk at any
+point, which is a stronger guarantee than a temp file that gets cleaned
+up after the fact.
 
 ## Testing
 

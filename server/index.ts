@@ -20,10 +20,23 @@ const upload = multer({
   limits: { fileSize: maxUploadMb * 1024 * 1024 },
 });
 
+// ponytail: basic sanity check per spec; extend if a converter's `from` needs one
+const expectedMimeTypes: Record<string, string[]> = {
+  jpg: ["image/jpeg"],
+  jpeg: ["image/jpeg"],
+  png: ["image/png"],
+  webp: ["image/webp"],
+  pdf: ["application/pdf"],
+  heic: ["image/heic", "image/heif", "application/octet-stream"], // browsers are inconsistent about HEIC's mimetype
+};
+
 export function createApp(registry: Map<string, Converter>) {
   const app = express();
 
-  app.use(express.static(path.join(__dirname, "..", "public")));
+  // resolve from cwd, not __dirname: after build, __dirname is dist/server
+  // but public/ is never compiled there — both npm run dev and npm start
+  // are invoked from the repo root.
+  app.use(express.static(path.resolve("public")));
 
   app.get("/api/formats", (_req, res) => {
     res.json(listConverters(registry));
@@ -35,6 +48,14 @@ export function createApp(registry: Map<string, Converter>) {
 
     if (!from || !to || !file) {
       res.status(400).json({ error: "from, to, and file are required" });
+      return;
+    }
+
+    const expected = expectedMimeTypes[from];
+    if (expected && file.mimetype && !expected.includes(file.mimetype)) {
+      res.status(400).json({
+        error: `file does not look like a .${from} file (got ${file.mimetype})`,
+      });
       return;
     }
 
@@ -60,6 +81,22 @@ export function createApp(registry: Map<string, Converter>) {
       });
     }
   });
+
+  app.use(
+    (
+      err: unknown,
+      _req: express.Request,
+      res: express.Response,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      _next: express.NextFunction
+    ) => {
+      if (err instanceof multer.MulterError) {
+        res.status(413).json({ error: `file exceeds ${maxUploadMb}MB` });
+        return;
+      }
+      res.status(500).json({ error: "internal error" });
+    }
+  );
 
   return app;
 }

@@ -71,4 +71,39 @@ describe("POST /api/convert", () => {
 
     expect(res.status).toBe(422);
   });
+
+  it("returns 400 when the upload's mimetype doesn't match the declared from format", async () => {
+    const res = await request(app)
+      .post("/api/convert")
+      .field("from", "jpg")
+      .field("to", "png")
+      .attach("file", Buffer.from("hello"), {
+        filename: "input.jpg",
+        contentType: "text/plain",
+      });
+
+    expect(res.status).toBe(400);
+    expect(res.body.error).toMatch(/does not look like/);
+  });
+
+  it("resolves .jpeg uploads via the jpeg->jpg alias", async () => {
+    const jpgInput = await sharp({
+      create: {
+        width: 4,
+        height: 4,
+        channels: 3,
+        background: { r: 0, g: 255, b: 0 },
+      },
+    })
+      .jpeg()
+      .toBuffer();
+
+    const res = await request(app)
+      .post("/api/convert")
+      .field("from", "jpeg")
+      .field("to", "png")
+      .attach("file", jpgInput, "input.jpeg");
+
+    expect(res.status).toBe(200);
+  });
 });

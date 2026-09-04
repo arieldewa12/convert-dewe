@@ -40,6 +40,17 @@ beforeAll(async () => {
     path.join(dir, "not-a-converter.js"),
     `export default { foo: "bar" };`
   );
+
+  await writeFile(
+    path.join(dir, "jpg-to-png.js"),
+    `export default {
+      id: "jpg-to-png",
+      from: "jpg",
+      to: "png",
+      label: "JPG -> PNG",
+      async convert(input) { return input; },
+    };`
+  );
 });
 
 afterAll(async () => {
@@ -55,7 +66,7 @@ describe("buildRegistry", () => {
 
   it("keeps the first converter on a duplicate from:to pair", async () => {
     const registry = await buildRegistry(dir);
-    expect(registry.size).toBe(1);
+    expect(registry.size).toBe(2);
   });
 
   it("skips files that throw on load without crashing", async () => {
@@ -69,11 +80,20 @@ describe("buildRegistry", () => {
     expect(list.some((c) => c.id === undefined)).toBe(false);
   });
 
+  it("resolves the jpeg->jpg extension alias so a jpg converter is found via jpeg", async () => {
+    const registry = await buildRegistry(dir);
+    expect(getConverter(registry, "jpeg", "png")?.id).toBe("jpg-to-png");
+  });
+
   it("lists converters with id, from, to, label", async () => {
     const registry = await buildRegistry(dir);
     const list = listConverters(registry);
-    expect(list).toEqual([
-      { id: "a-to-b", from: "a", to: "b", label: "A -> B" },
-    ]);
+    expect(list).toEqual(
+      expect.arrayContaining([
+        { id: "a-to-b", from: "a", to: "b", label: "A -> B" },
+        { id: "jpg-to-png", from: "jpg", to: "png", label: "JPG -> PNG" },
+      ])
+    );
+    expect(list).toHaveLength(2);
   });
 });

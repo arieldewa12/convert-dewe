@@ -35,4 +35,5 @@ export interface Converter {
   only the first one loaded wins (and a warning is logged) — don't
   rely on that; keep pairs unique.
 - Keep `convert()` pure: input buffer in, output buffer out. No global
-  state, no writing outside `server/tmp/`.
+  state; `convert()` must not do any filesystem or network I/O —
+  everything happens on the in-memory buffer.
