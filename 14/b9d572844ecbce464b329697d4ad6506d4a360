@@ -1,0 +1,23 @@
+server/converters/pdf-to-png.ts
+  s_20bca305e95a77::t_9c35029f8f9e5f 1-9,11-13,19-22
+  s_20bca305e95a77::t_d6082566a29fdc 10,16-17
+  s_20bca305e95a77::t_c4667a892049d9 14-15,18
+server/converters/pdf-to-png.test.ts
+  s_20bca305e95a77::t_06e8e4f9d36762 1-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "14b9d572844ecbce464b329697d4ad6506d4a360",
+  "prompts": {},
+  "sessions": {
+    "s_20bca305e95a77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "13dc5261-fce6-4dc9-9059-e39af151ee72",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "arieldewa12 <arieldewa12@gmail.com>"
+    }
+  }
+}
