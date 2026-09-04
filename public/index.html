@@ -1,5 +1,61 @@
 <!doctype html>
-<html>
-  <head><title>Converter of All</title></head>
-  <body><p>placeholder — replaced in Task 8</p></body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Converter of All</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 480px;
+        margin: 4rem auto;
+        padding: 0 1rem;
+      }
+      #drop {
+        border: 2px dashed #888;
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        color: #555;
+      }
+      #drop.hover {
+        border-color: #333;
+        color: #000;
+      }
+      select,
+      button {
+        font-size: 1rem;
+        padding: 0.4rem;
+      }
+      #status {
+        margin-top: 1rem;
+      }
+      .row {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Converter of All</h1>
+    <p>Runs 100% locally. Your files never leave this machine.</p>
+
+    <div id="drop">Drop a file here, or click to choose</div>
+    <input type="file" id="file-input" hidden />
+
+    <div class="row">
+      <label>From: <span id="from-label">—</span></label>
+      <label>
+        To:
+        <select id="to-select" disabled></select>
+      </label>
+      <button id="convert-btn" disabled>Convert</button>
+    </div>
+
+    <div id="status"></div>
+
+    <script src="app.js"></script>
+  </body>
 </html>
