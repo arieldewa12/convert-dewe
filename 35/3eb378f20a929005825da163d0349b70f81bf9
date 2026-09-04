@@ -1,0 +1,22 @@
+docs/superpowers/plans/2026-09-04-converter-of-all.md
+  s_20bca305e95a77::t_724afe042303e4 1367-1506
+  s_20bca305e95a77::t_32f3e6050b0851 5,9
+docs/superpowers/specs/2026-09-04-converter-of-all-design.md
+  s_20bca305e95a77::t_30b7916abb6903 12-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "353eb378f20a929005825da163d0349b70f81bf9",
+  "prompts": {},
+  "sessions": {
+    "s_20bca305e95a77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "13dc5261-fce6-4dc9-9059-e39af151ee72",
+        "model": "unknown"
+      },
+      "human_author": "arieldewa12 <arieldewa12@gmail.com>"
+    }
+  }
+}
