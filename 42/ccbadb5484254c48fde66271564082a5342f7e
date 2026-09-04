@@ -1,0 +1,27 @@
+tsconfig.json
+  s_20bca305e95a77::t_a456433fcfd0cc 1-15
+.gitignore
+  s_20bca305e95a77::t_e1f5b0c8701003 1-4
+vitest.config.ts
+  s_20bca305e95a77::t_20796f76230315 1-7
+package.json
+  s_20bca305e95a77::t_33819ab82695c3 1-28
+package-lock.json
+  s_20bca305e95a77::t_1ba38d1fa1a691 1-4030
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "42ccbadb5484254c48fde66271564082a5342f7e",
+  "prompts": {},
+  "sessions": {
+    "s_20bca305e95a77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "13dc5261-fce6-4dc9-9059-e39af151ee72",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "arieldewa12 <arieldewa12@gmail.com>"
+    }
+  }
+}
