@@ -1,0 +1,26 @@
+server/converters/heic-to-pdf.ts
+  s_20bca305e95a77::t_1ffc83cd7dfd74 17-22,24
+  s_20bca305e95a77::t_f4304c8de3a2e0 1-16,23,25-37
+package.json
+  s_20bca305e95a77::t_7b19fa228468ef 15,23
+server/converters/heic-to-pdf.test.ts
+  s_20bca305e95a77::t_1a27a2b21d6230 1-28
+package-lock.json
+  s_20bca305e95a77::t_752cd92dbc79b8 13,21,1669-1675,2658-2683,2743-2757,3058-3066
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "d80f9720ba6f68dcdd8dd83e20c1c36e90a111ae",
+  "prompts": {},
+  "sessions": {
+    "s_20bca305e95a77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "13dc5261-fce6-4dc9-9059-e39af151ee72",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "arieldewa12 <arieldewa12@gmail.com>"
+    }
+  }
+}
