@@ -32,15 +32,23 @@ export async function buildRegistry(
   // birth/mtime so "first" (for duplicate from:to handling) is deterministic.
   const withTimes = await Promise.all(
     candidates.map(async (entry) => {
-      const s = await stat(path.join(dir, entry));
-      return { entry, time: s.birthtimeMs || s.mtimeMs };
+      try {
+        const s = await stat(path.join(dir, entry));
+        const time =
+          Number.isFinite(s.birthtimeMs) && s.birthtimeMs > 0
+            ? s.birthtimeMs
+            : s.mtimeMs;
+        return { entry, time };
+      } catch (err) {
+        console.warn(`[registry] failed to stat ${entry}:`, err);
+        return { entry, time: Infinity };
+      }
     })
   );
   withTimes.sort((a, b) => a.time - b.time);
   const entries = withTimes.map(({ entry }) => entry);
 
   for (const entry of entries) {
-
     const fileUrl = pathToFileURL(path.join(dir, entry)).href;
 
     try {
